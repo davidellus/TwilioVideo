@@ -1,14 +1,23 @@
 import Fluent
 import Vapor
-
+import TwilioPackage
 func routes(_ app: Application) throws {
-    app.get { req in
-        return "It works!"
-    }
+  let userController = UserController()
+    let eventController = EventController()
+    let categoryController = CategoryController()
+    try app.register(collection: userController)
+    try app.register(collection: eventController)
+    try app.register(collection: categoryController)
 
-    app.get("hello") { req -> String in
-        return "Hello, world!"
+    app.post("room"){ req -> EventLoopFuture<OutgoingRoom> in
+        let room = OutgoingRoom(uniqueName: "Tareq")
+        return req.twilio.sendRoom(room)
     }
-
-    try app.register(collection: TodoController())
+    app.post("subaccount"){ req-> EventLoopFuture<OutgoingSubAccount> in
+        let subaccount = OutgoingSubAccount(friendlyName: "Mio")
+        return req.twilio.sendSubAccount(subaccount)
+        
+    }
+    
 }
+
