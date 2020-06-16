@@ -16,7 +16,7 @@ let package = Package(
         .package(url: "https://github.com/vapor/fluent.git", from: "4.0.0-rc"),
         .package(url: "https://github.com/vapor/fluent-sqlite-driver.git", from: "4.0.0-rc"),
 //        .package(path: "/Users/davidepedro/Desktop/server/Vapor/TwilioPackage")
-        .package(url: "https://github.com/davidellus/TwilioPackage", from: "1.0.1")
+        .package(url: "https://github.com/davidellus/TwilioPackage", from: "1.0.0")
     ],
     targets: [
         .target(
