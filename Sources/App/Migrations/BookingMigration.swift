@@ -8,6 +8,7 @@
 import Foundation
 import Fluent
 import FluentKit
+import FluentPostgresDriver
 
 struct CreateBooking: Migration {
     func prepare(on database: Database) -> EventLoopFuture<Void> {

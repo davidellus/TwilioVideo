@@ -8,6 +8,7 @@
 import Foundation
 import Fluent
 import Vapor
+import FluentPostgresDriver
 
 struct CreateEvent: Migration {
     func prepare(on database: Database) -> EventLoopFuture<Void> {

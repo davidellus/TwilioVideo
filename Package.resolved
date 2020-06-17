@@ -29,12 +29,21 @@
         }
       },
       {
+        "package": "CryptoSwift",
+        "repositoryURL": "https://github.com/krzyzanowskim/CryptoSwift.git",
+        "state": {
+          "branch": null,
+          "revision": "39f08ac5269361a50c08ce1e2f41989bfc4b1ec8",
+          "version": "1.3.1"
+        }
+      },
+      {
         "package": "fluent",
         "repositoryURL": "https://github.com/vapor/fluent.git",
         "state": {
           "branch": null,
-          "revision": "55f47ca0afe37a247d1a77d1db3c309de1d3af80",
-          "version": "4.0.0-rc.3.1"
+          "revision": "e681c93df3201a2d8ceef15e8a9a0634578df233",
+          "version": "4.0.0"
         }
       },
       {
@@ -42,17 +51,35 @@
         "repositoryURL": "https://github.com/vapor/fluent-kit.git",
         "state": {
           "branch": null,
-          "revision": "2494ff3ad831caae6635edecdd690f4fd8404bb2",
-          "version": "1.0.0-rc.2.5"
+          "revision": "7396d1ac4fa7d510b1c280351e98b8192a4ec34b",
+          "version": "1.0.0"
         }
       },
       {
-        "package": "fluent-sqlite-driver",
-        "repositoryURL": "https://github.com/vapor/fluent-sqlite-driver.git",
+        "package": "fluent-postgres-driver",
+        "repositoryURL": "https://github.com/vapor/fluent-postgres-driver.git",
         "state": {
           "branch": null,
-          "revision": "a9f4313e78f68b41c91d8057ee8269c9beb1e4d5",
-          "version": "4.0.0-rc.2"
+          "revision": "cf8ec53b87606dc799a07a0754a297b32cf9f592",
+          "version": "2.0.0"
+        }
+      },
+      {
+        "package": "postgres-kit",
+        "repositoryURL": "https://github.com/vapor/postgres-kit.git",
+        "state": {
+          "branch": null,
+          "revision": "e43a32baec80ebbcfed4d0330d0be50eb73434c7",
+          "version": "2.0.1"
+        }
+      },
+      {
+        "package": "postgres-nio",
+        "repositoryURL": "https://github.com/vapor/postgres-nio.git",
+        "state": {
+          "branch": null,
+          "revision": "25aa31fdd55ea119edee270ce4bd7bd4bd59fdf7",
+          "version": "1.1.0"
         }
       },
       {
@@ -71,24 +98,6 @@
           "branch": null,
           "revision": "3800a6f5fe5cb781420ebe059ff93392bc67cb9c",
           "version": "3.1.0"
-        }
-      },
-      {
-        "package": "sqlite-kit",
-        "repositoryURL": "https://github.com/vapor/sqlite-kit.git",
-        "state": {
-          "branch": null,
-          "revision": "9259e3948dbc4f8e6a1e761423483e10931c03c9",
-          "version": "4.0.0-rc.1.1"
-        }
-      },
-      {
-        "package": "sqlite-nio",
-        "repositoryURL": "https://github.com/vapor/sqlite-nio.git",
-        "state": {
-          "branch": null,
-          "revision": "af884d7f01f4dd93b2844c1f0dd2bf0fd24f04d3",
-          "version": "1.0.0-rc.1.1"
         }
       },
       {
@@ -164,12 +173,21 @@
         }
       },
       {
+        "package": "TwilioPackage",
+        "repositoryURL": "https://github.com/davidellus/TwilioPackage",
+        "state": {
+          "branch": null,
+          "revision": "ac33a4e082b487419f8784ec9cc0ea18e3432ec1",
+          "version": "1.0.0"
+        }
+      },
+      {
         "package": "vapor",
         "repositoryURL": "https://github.com/vapor/vapor.git",
         "state": {
           "branch": null,
-          "revision": "4fa7ed40ccb1dc4e1f8739f31e1d3df15681bbdc",
-          "version": "4.8.0"
+          "revision": "2bfe7149d9786e2e601898cb10b9ba9072f60c0b",
+          "version": "4.10.0"
         }
       },
       {

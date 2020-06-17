@@ -1,4 +1,5 @@
 import Fluent
+import FluentPostgresDriver
 
 struct CreateToken: Migration {
     func prepare(on database: Database) -> EventLoopFuture<Void> {
