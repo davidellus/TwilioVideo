@@ -34,7 +34,8 @@ final class Token: Model, Content, ModelTokenAuthenticatable {
         self.value = value
         self.$user.id = userID
         // Set expirty to 30 days
-        self.expiresAt = Date().advanced(by: 60 * 60 * 24 * 30)
+//        self.expiresAt = Date().advanced(by: 60 * 60 * 24)
+        self.expiresAt = Date()
         self.isRevoked = false
     }
 }
