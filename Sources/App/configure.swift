@@ -14,12 +14,19 @@ public func configure(_ app: Application) throws {
            password: Environment.get("DATABASE_PASSWORD") ?? "",
            database: Environment.get("DATABASE_NAME") ?? "twiliodb"
        ), as: .psql)
+    try app.databases.use(.postgres(url: Environment.databaseURL), as: .psql)
 
     app.migrations.add(CreateUser())
     app.migrations.add(CreateEvent())
     app.migrations.add(CreateCategory())
     app.migrations.add(CreateEventCategory())
+    app.migrations.add(CreateBooking())
+    app.migrations.add(CreateToken())
     
-    // register routes
+    if app.environment == .development{
+        try app.autoMigrate().wait()
+    }
+    
+    // register routesz
     try routes(app)
 }
