@@ -15,6 +15,7 @@ let package = Package(
         .package(url: "https://github.com/vapor/vapor.git", from: "4.0.0-rc"),
         .package(url: "https://github.com/vapor/fluent.git", from: "4.0.0-rc"),
         .package(url: "https://github.com/vapor/fluent-postgres-driver.git", from: "2.0.0"),
+        .package(url: "https://github.com/vapor/jwt-kit", from: "4.0.0-rc.1.4"),
 //        .package(path: "/Users/davidepedro/Desktop/server/Vapor/TwilioPackage")
         .package(url: "https://github.com/davidellus/TwilioPackage", from: "1.0.0")
     ],
@@ -25,6 +26,7 @@ let package = Package(
                 .product(name: "Fluent", package: "fluent"),
                 .product(name: "FluentPostgresDriver", package: "fluent-postgres-driver"),
                 .product(name: "Vapor", package: "vapor"),
+                ._productItem(name: "JWTKit", package: "jwt-kit"),
                 .product(name: "TwilioPackage", package: "TwilioPackage")
             ],
             swiftSettings: [

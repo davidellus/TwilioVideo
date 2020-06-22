@@ -51,8 +51,8 @@
         "repositoryURL": "https://github.com/vapor/fluent-kit.git",
         "state": {
           "branch": null,
-          "revision": "7396d1ac4fa7d510b1c280351e98b8192a4ec34b",
-          "version": "1.0.0"
+          "revision": "8ac0bc2764d3c93e5a30e7799492ea518afd9cc0",
+          "version": "1.0.1"
         }
       },
       {
@@ -62,6 +62,15 @@
           "branch": null,
           "revision": "cf8ec53b87606dc799a07a0754a297b32cf9f592",
           "version": "2.0.0"
+        }
+      },
+      {
+        "package": "jwt-kit",
+        "repositoryURL": "https://github.com/vapor/jwt-kit",
+        "state": {
+          "branch": null,
+          "revision": "b5aa3d4eb91b54d0bd31a1a0c238199f2bf65969",
+          "version": "4.0.0-rc.1.4"
         }
       },
       {
@@ -96,8 +105,8 @@
         "repositoryURL": "https://github.com/vapor/sql-kit.git",
         "state": {
           "branch": null,
-          "revision": "3800a6f5fe5cb781420ebe059ff93392bc67cb9c",
-          "version": "3.1.0"
+          "revision": "ced1bbf79d8df7bd106e3d898b28cbc77bd69100",
+          "version": "3.3.0"
         }
       },
       {
