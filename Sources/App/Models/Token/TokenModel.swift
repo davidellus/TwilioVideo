@@ -39,7 +39,7 @@ final class Token: Model, Content {
     init(id: UUID? = nil, userID: User.IDValue,source: SessionSource, token: String) {
         self.id = id
         self.$user.id = userID
-        self.expiresAt = Date().advanced(by: Constants.REFRESH_TOKEN_LIFETIME)
+        self.expiresAt = Date(timeIntervalSinceNow: Constants.REFRESH_TOKEN_LIFETIME)
         self.source = source
         self.value = token
         self.isRevoked = false
