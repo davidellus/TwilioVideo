@@ -19,8 +19,8 @@ final class Event: Model, Content {
     @Field(key: "description") var description:String
     @Timestamp(key: "created_at",on: .create) var createdAt:Date?
     @Field(key: "event_date") var eventDate:Date?
-    @Field(key: "capacity") var capacity:Int
-    @Field(key: "email") var email: String
+    @Field(key: "capacity") var capacity:Int?
+    @Field(key: "email") var email: String?
     @Parent(key: "user_id") var user: User
     
     @Siblings(through: EventCategory.self, from: \.$event, to: \.$category) var category: [Category]
@@ -28,9 +28,14 @@ final class Event: Model, Content {
     @Children(for: \.$event) var bookings:[Booking]
     init(){}
     
-    init(id: UUID? = nil, name: String, userID: UUID){
+    init(id: UUID? = nil, name: String, title : String, description : String? ,email : String? , userID: UUID){
         self.id = id
         self.name = name
+        self.title = title
+        self.description = description ?? "no description for this event"
+        self.capacity = 10
+        self.email = email ?? ""
+        self.eventDate = Date()
         self.$user.id = userID
     }
 }

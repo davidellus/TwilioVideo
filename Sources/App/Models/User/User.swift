@@ -9,46 +9,68 @@ import Foundation
 import Vapor
 import Fluent
 
-final class User : Model,Content,ModelAuthenticatable{
+final class User : Model,Content{
+   struct Public: Content {
+     let username: String
+     let id: UUID
+     let createdAt: Date?
+     let updatedAt: Date?
+   }
     static let schema = "users"
-    static let usernameKey = \User.$email
-    static let passwordHashKey = \User.$passwordHash
     
     @ID(key: .id) var id: UUID?
     
-    @Field(key: "name") var name : String
+    @Field(key: "username") var username : String
+    
     @Field(key: "email") var email : String
+    
     @Field(key: "password_hash") var passwordHash: String
+    
     @Field(key: "user_type") var userType: UserType
     
     @Timestamp(key: "created_at", on: .create) var createdAt: Date?
     @Timestamp(key: "updated_at",on: .update) var updatedAt: Date?
     
-    
-    
     @Children(for: \.$user) var events : [Event]
+//    @Children(for: \.$user) var booking : [Booking]
+    
     init(){}
     
-    init(id : UUID? = nil , name : String, passwordHash: String,userType: UserType, email : String){
+    init(id : UUID? = nil , username : String, passwordHash: String,userType: UserType, email : String){
         self.id = id
-        self.name = name
+        self.username = username
         self.email = email
         self.passwordHash = passwordHash
         self.userType = userType
     }
-    
-    func verify(password: String) throws -> Bool {
-        try Bcrypt.verify(password, created: self.passwordHash)
-    }
 }
 
 extension User {
-    func generateToken() throws -> Token {
-        try .init(
-            value: [UInt8].random(count: 32).base64,
-            userID: self.requireID()
-        )
-    }
+  static func create(from userSignup: UserSignup) throws -> User {
+    User(username: userSignup.username, passwordHash: try Bcrypt.hash(userSignup.password), userType: .exibithor, email: userSignup.email)
+  }
+  
+  func createToken(source: SessionSource) throws -> Token {
+    let calendar = Calendar(identifier: .gregorian)
+    let expiryDate = calendar.date(byAdding: .year, value: 1, to: Date())
+    return try Token(userID: requireID(), source: source, token: [UInt8].random(count: 16).base64)
+  }
+
+  func asPublic() throws -> Public {
+    Public(username: username,
+           id: try requireID(),
+           createdAt: createdAt,
+           updatedAt: updatedAt)
+  }
+}
+
+extension User: ModelAuthenticatable {
+  static let usernameKey = \User.$username
+  static let passwordHashKey = \User.$passwordHash
+  
+  func verify(password: String) throws -> Bool {
+    try Bcrypt.verify(password, created: self.passwordHash)
+  }
 }
 
 enum UserType: String, Content {

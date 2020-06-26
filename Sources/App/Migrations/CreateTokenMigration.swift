@@ -1,7 +1,7 @@
 import Fluent
 import FluentPostgresDriver
 
-struct CreateToken: Migration {
+struct CreateToken1: Migration {
     func prepare(on database: Database) -> EventLoopFuture<Void> {
         return database.schema("tokens")
             .id()
@@ -9,6 +9,7 @@ struct CreateToken: Migration {
             .field("user_id", .uuid, .required, .references("users", "id"))
             .field("expires_at", .date, .required)
             .field("is_revoked", .bool, .required)
+            .field("source", .int, .required)
             .unique(on: "token_value")
             .create()
     }

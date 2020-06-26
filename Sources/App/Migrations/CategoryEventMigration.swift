@@ -14,7 +14,7 @@ struct CreateCategory: Migration {
     func prepare(on database: Database) -> EventLoopFuture<Void> {
         database.schema("categories")
         .id()
-            .field("name", .string)
+        .field("name", .string)
         .create()
     }
     
@@ -27,8 +27,8 @@ struct CreateEventCategory: Migration {
     func prepare(on database: Database) -> EventLoopFuture<Void> {
         database.schema("events_categories")
         .id()
-            .field("event_id", .uuid, .required, .references("events","id"))
-            .field("category_id", .uuid, .required, .references("categories", "id"))
+        .field("event_id", .uuid, .required, .references("events","id"))
+        .field("category_id", .uuid, .required, .references("categories", "id"))
         .create()
     }
     func revert(on database: Database) -> EventLoopFuture<Void> {

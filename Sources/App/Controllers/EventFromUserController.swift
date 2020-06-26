@@ -8,27 +8,40 @@
 import Foundation
 import Vapor
 import Fluent
+import TwilioPackage
 
 struct EventController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
+        
         let eventRoute = routes.grouped("events").grouped(Token.authenticator(),User.guardMiddleware())
         
         eventRoute.post(use: create)
-        eventRoute.get("id",use: index)
-//        eventRoute.post(use: createEvent)
+        eventRoute.get(use: index)
+        eventRoute.post("new",use: create)
         eventRoute.delete(":eventID",use: delete)
     }
     //Show all events
     func index(req: Request) throws -> EventLoopFuture<[Event]>{
         Event.query(on: req.db).all()
     }
-    //Create ad Event
+    //Create an Event and link a Room
     func create(req: Request) throws ->EventLoopFuture<Event> {
         let data = try req.content.decode(EventCreateData.self)
         let user = try req.auth.require(User.self)
-        let event = try Event(name: data.title, userID: user.requireID())
-        
-        return event.save(on: req.db).map{ event }
+        let event = try Event(name: data.name,
+                              title: data.title,
+                              description: data.description,
+                              email: data.email,
+                              userID: user.requireID()
+                                )
+        let room = try OutgoingRoom(uniqueName: data.title)
+        return req.twilio.sendRoom(room, on: req.eventLoop).flatMap {_ in 
+            return event.create(on: req.db).map{ event }
+//       guard let newRoom = try? req.twilio.sendRoom(room) else {
+//            return req.eventLoop.future(error: Abort(.internalServerError))
+//        }
+//        return event.save(on: req.db).map{ event }
+        }
     }
     //Create an Event for a User
     func createEvent(req: Request) throws -> EventLoopFuture<HTTPStatus>{
@@ -58,8 +71,19 @@ struct EventController: RouteCollection {
         }
     }
     
+    private func checkIfEventExists(_ title: String, req: Request) -> EventLoopFuture<Bool> {
+      Event.query(on: req.db)
+        .filter(\.$title == title)
+        .first()
+        .map { $0 != nil }
+    }
+    
 }
 
 struct EventCreateData: Content {
     let title : String
+    let name : String
+    let description: String?
+    let email : String?
+    let eventData : Date?
 }

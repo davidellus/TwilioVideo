@@ -13,9 +13,8 @@ import Fluent
 struct UserController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
         let userRoutes = routes.grouped("users")
-        
-        userRoutes.post(use: createHandler)
         userRoutes.get(use: indexHandler)
+        userRoutes.post("signup",use: createHandler)
         userRoutes.delete(use: delete)
         
                 let httpBasicAuthRoutes = userRoutes.grouped(User.authenticator())
@@ -30,42 +29,67 @@ struct UserController: RouteCollection {
                 adminMiddleware.delete(":userID", use: deleteHandler)
             }
             
+    //Show all user
             func indexHandler(_ req: Request) throws -> EventLoopFuture<[User]> {
                 return User.query(on: req.db).all()
             }
-            
-            func createHandler(_ req: Request) throws -> EventLoopFuture<User> {
-                let userData = try req.content.decode(CreateUserData.self)
-                let passwordHash = try Bcrypt.hash(userData.password)
-                let user = User(name: userData.name, passwordHash: passwordHash, userType: userData.userType, email: userData.email)
-                return user.save(on: req.db).map { user }
-            }
-            
+    
+        //Create a USER - OK
+            fileprivate func createHandler(req: Request) throws -> EventLoopFuture<NewSession> {
+               try UserSignup.validate(req)
+               let userSignup = try req.content.decode(UserSignup.self)
+               let user = try User.create(from: userSignup)
+               var token: Token!
+
+               return checkIfUserExists(userSignup.username, req: req).flatMap { exists in
+                 guard !exists else {
+                   return req.eventLoop.future(error: UserError.usernameTaken)
+                 }
+
+                 return user.save(on: req.db)
+               }.flatMap {
+                 guard let newToken = try? user.createToken(source: .signup) else {
+                   return req.eventLoop.future(error: Abort(.internalServerError))
+                 }
+                 token = newToken
+                 return token.save(on: req.db)
+               }.flatMapThrowing {
+                 NewSession(token: token.value, user: try user.asPublic())
+               }
+             }
+            //Delete a USER - OK
             func deleteHandler(_ req: Request) throws -> EventLoopFuture<HTTPStatus> {
                 return User.find(req.parameters.get("userID"), on: req.db)
                     .unwrap(or: Abort(.notFound))
                     .flatMap { $0.delete(on: req.db) }
                     .transform(to: .ok)
             }
-            
-            func loginHandler(_ req: Request) throws -> EventLoopFuture<Token> {
+            //Login a User - OCHECK
+            func loginHandler(_ req: Request) throws -> EventLoopFuture<NewSession> {
                 let user = try req.auth.require(User.self)
-                let token = try user.generateToken()
-                return token.save(on: req.db).map { token }
+                let token = try user.createToken(source: .login)
+                     return token.save(on: req.db).flatMapThrowing {
+                        NewSession(token: token.value, user: try user.asPublic())}
             }
             
             func getMyDetailsHandler(_ req: Request) throws -> User {
                 try req.auth.require(User.self)
             }
-      //GET - ALL USERS
+    
+    func getMyOwnUser(req: Request) throws -> User.Public {
+       try req.auth.require(User.self).asPublic()
+     }
+// - OK
+     private func checkIfUserExists(_ username: String, req: Request) -> EventLoopFuture<Bool> {
+       User.query(on: req.db)
+         .filter(\.$username == username)
+         .first()
+         .map { $0 != nil }
+     }
+    
+      //GET - ALL USERS WITH EVENTS
         func index(req: Request) throws -> EventLoopFuture<[User]>{
             User.query(on: req.db).with(\.$events).all()
-        }
-        //POST _ A USER
-        func create(req: Request) throws ->EventLoopFuture<User> {
-            let user = try req.content.decode(User.self)
-            
-            return user.save(on: req.db).map{ user }
         }
         // DELETE A USER
         func delete(req: Request) throws -> EventLoopFuture<HTTPStatus> {

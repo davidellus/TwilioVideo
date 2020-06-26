@@ -21,12 +21,12 @@ public func configure(_ app: Application) throws {
        ), as: .psql)
    }
 
-    app.migrations.add(CreateUser())
+    app.migrations.add(CreateUser1())
     app.migrations.add(CreateEvent())
     app.migrations.add(CreateCategory())
     app.migrations.add(CreateEventCategory())
     app.migrations.add(CreateBooking())
-    app.migrations.add(CreateToken())
+    app.migrations.add(CreateToken1())
     
     if app.environment == .development{
         try app.autoMigrate().wait()

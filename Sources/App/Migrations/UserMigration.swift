@@ -10,12 +10,12 @@ import Vapor
 import Fluent
 import FluentPostgresDriver
 
-struct CreateUser: Migration {
+struct CreateUser1: Migration {
     
     func prepare(on database: Database) -> EventLoopFuture<Void> {
         database.schema("users")
         .id()
-        .field("name", .string)
+        .field("username", .string, .required)
         .field("email", .string, .required)
         .field("password_hash", .string, .required)
         .field("user_type", .string, .required)

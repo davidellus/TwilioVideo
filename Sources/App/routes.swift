@@ -10,8 +10,9 @@ func routes(_ app: Application) throws {
     try app.register(collection: categoryController)
 
     app.post("room"){ req -> EventLoopFuture<OutgoingRoom> in
-        let room = OutgoingRoom(uniqueName: "Tareq")
-        return req.twilio.sendRoom(room)
+        let temp = try req.content.decode(OutgoingRoom.self)
+        let room = OutgoingRoom(uniqueName: temp.uniqueName)
+        return req.twilio.sendRoom(room, on: req.eventLoop)
     }
     app.post("subaccount"){ req-> EventLoopFuture<OutgoingSubAccount> in
         let subaccount = OutgoingSubAccount(friendlyName: "Mio")
@@ -20,4 +21,3 @@ func routes(_ app: Application) throws {
     }
     
 }
-

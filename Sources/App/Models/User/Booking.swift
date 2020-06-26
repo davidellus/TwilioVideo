@@ -15,7 +15,7 @@ final class Booking: Model,Content {
 //    Visitor and event id
 //    Booking are children of both  visitor and event
     @Parent(key: "event_id") var event:Event
-//    @Parent(key: "visitor_id") var vistor:Visitor
+//    @Parent(key: "user_id") var user: User
     
     init() {}
    
@@ -23,7 +23,7 @@ final class Booking: Model,Content {
     init(id:UUID? = nil,eventID:UUID) {
         self.id = id
         self.$event.id = eventID
-//        self.$vistor.id = visitorID
+//        self.$user.id = userID
         
     }
 }
