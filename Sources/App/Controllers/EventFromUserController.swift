@@ -34,13 +34,9 @@ struct EventController: RouteCollection {
                               email: data.email,
                               userID: user.requireID()
                                 )
-        let room = try OutgoingRoom(uniqueName: data.title)
+        let room = OutgoingRoom(uniqueName: data.title)
         return req.twilio.sendRoom(room, on: req.eventLoop).flatMap {_ in 
-            return event.create(on: req.db).map{ event }
-//       guard let newRoom = try? req.twilio.sendRoom(room) else {
-//            return req.eventLoop.future(error: Abort(.internalServerError))
-//        }
-//        return event.save(on: req.db).map{ event }
+            event.create(on: req.db).map{ event }
         }
     }
     //Create an Event for a User

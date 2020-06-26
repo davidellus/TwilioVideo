@@ -31,12 +31,15 @@ struct UserController: RouteCollection {
             
     //Show all user
             func indexHandler(_ req: Request) throws -> EventLoopFuture<[User]> {
+                try UserSignup.validate(req)
+                let userSignup = try req.content.decode(UserSignup.self)
                 return User.query(on: req.db).all()
             }
     
         //Create a USER - OK
             fileprivate func createHandler(req: Request) throws -> EventLoopFuture<NewSession> {
                try UserSignup.validate(req)
+            try req.auth.require(User.self)
                let userSignup = try req.content.decode(UserSignup.self)
                let user = try User.create(from: userSignup)
                var token: Token!

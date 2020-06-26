@@ -51,8 +51,8 @@
         "repositoryURL": "https://github.com/vapor/fluent-kit.git",
         "state": {
           "branch": null,
-          "revision": "8ac0bc2764d3c93e5a30e7799492ea518afd9cc0",
-          "version": "1.0.1"
+          "revision": "ad5eef38c5168fdb4b77d5a73794a90e0ce3b9a5",
+          "version": "1.0.2"
         }
       },
       {
@@ -69,8 +69,8 @@
         "repositoryURL": "https://github.com/vapor/jwt-kit",
         "state": {
           "branch": null,
-          "revision": "b5aa3d4eb91b54d0bd31a1a0c238199f2bf65969",
-          "version": "4.0.0-rc.1.4"
+          "revision": "b5b711fd6ee5638552a29a0c39003aeb109caa94",
+          "version": "4.0.0-rc.1.5"
         }
       },
       {
@@ -78,8 +78,8 @@
         "repositoryURL": "https://github.com/vapor/postgres-kit.git",
         "state": {
           "branch": null,
-          "revision": "e43a32baec80ebbcfed4d0330d0be50eb73434c7",
-          "version": "2.0.1"
+          "revision": "fca27ff90326e3612ed0197598a7ce467bfedfbd",
+          "version": "2.1.0"
         }
       },
       {
@@ -105,8 +105,8 @@
         "repositoryURL": "https://github.com/vapor/sql-kit.git",
         "state": {
           "branch": null,
-          "revision": "d044d36b1179b72f7c24fb756979c88cb767fcb4",
-          "version": "3.4.0"
+          "revision": "8b82edd5d918068f204e3ac4206d5d15f6740395",
+          "version": "3.5.0"
         }
       },
       {
@@ -182,21 +182,12 @@
         }
       },
       {
-        "package": "TwilioPackage",
-        "repositoryURL": "https://github.com/davidellus/TwilioPackage",
-        "state": {
-          "branch": null,
-          "revision": "ac33a4e082b487419f8784ec9cc0ea18e3432ec1",
-          "version": "1.0.0"
-        }
-      },
-      {
         "package": "vapor",
         "repositoryURL": "https://github.com/vapor/vapor.git",
         "state": {
           "branch": null,
-          "revision": "de17edc90c424804c9eec633e78515a8317461b1",
-          "version": "4.10.3"
+          "revision": "38a3ca93b263c304b1fb7dc6c656d738cdc3fe83",
+          "version": "4.12.1"
         }
       },
       {
