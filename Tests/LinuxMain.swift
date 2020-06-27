@@ -1,7 +1,7 @@
 import XCTest
 
-import TwilioVideoTests
+import TwilioVideoAppTests
 
 var tests = [XCTestCaseEntry]()
-tests += TwilioVideoTests.allTests()
+tests += TwilioVideoAppTests.allTests()
 XCTMain(tests)
