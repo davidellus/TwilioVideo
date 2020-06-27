@@ -39,7 +39,7 @@
       },
       {
         "package": "fluent",
-        "repositoryURL": "https://github.com/vapor/fluent.git",
+        "repositoryURL": "https://github.com/vapor/fluent",
         "state": {
           "branch": null,
           "revision": "e681c93df3201a2d8ceef15e8a9a0634578df233",
@@ -57,7 +57,7 @@
       },
       {
         "package": "fluent-postgres-driver",
-        "repositoryURL": "https://github.com/vapor/fluent-postgres-driver.git",
+        "repositoryURL": "https://github.com/vapor/fluent-postgres-driver",
         "state": {
           "branch": null,
           "revision": "cf8ec53b87606dc799a07a0754a297b32cf9f592",
@@ -182,8 +182,17 @@
         }
       },
       {
+        "package": "TwilioPackage",
+        "repositoryURL": "https://github.com/davidellus/TwilioPackage",
+        "state": {
+          "branch": null,
+          "revision": "4a7e394e41c0533b729980da2edc95d76b331cd2",
+          "version": "1.1.1"
+        }
+      },
+      {
         "package": "vapor",
-        "repositoryURL": "https://github.com/vapor/vapor.git",
+        "repositoryURL": "https://github.com/vapor/vapor",
         "state": {
           "branch": null,
           "revision": "38a3ca93b263c304b1fb7dc6c656d738cdc3fe83",
