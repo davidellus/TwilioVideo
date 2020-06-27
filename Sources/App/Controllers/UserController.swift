@@ -13,7 +13,8 @@ import Fluent
 struct UserController: RouteCollection {
     func boot(routes: RoutesBuilder) throws {
         let userRoutes = routes.grouped("users")
-        userRoutes.get(use: indexHandler)
+        let protectedUsers = userRoutes.grouped(User.authenticator(), AdminMiddleware())
+        protectedUsers.get(use: indexHandler)
         userRoutes.post("signup",use: createHandler)
         userRoutes.delete(use: delete)
         
