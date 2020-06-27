@@ -4,7 +4,7 @@ import Foundation
 
 // MARK: - Conveniences
 
-let localDev = true
+let localDev = false
 let devDir = "../"
 
 struct Dep {
@@ -50,7 +50,7 @@ deps.append(.github("vapor/jwt-kit", "4.0.0-rc.1.4"), .product("Fluent", "fluent
 if localDev {
     deps.append(.local("TwilioPackage"), .product("TwilioPackage"))
 } else {
-    deps.append(.github("davidellus/TwilioPackage", "1.1.0"), .product("TwilioPackage"))
+    deps.append(.github("davidellus/TwilioPackage", "1.1.5"), .product("TwilioPackage"))
 }
 
 // MARK: - Package
