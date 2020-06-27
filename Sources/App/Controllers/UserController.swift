@@ -32,7 +32,6 @@ struct UserController: RouteCollection {
             
     //Show all user
             func indexHandler(_ req: Request) throws -> EventLoopFuture<[User]> {
-                try UserSignup.validate(req)
                 let userSignup = try req.content.decode(UserSignup.self)
                 return User.query(on: req.db).all()
             }
