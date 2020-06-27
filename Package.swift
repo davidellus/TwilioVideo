@@ -4,7 +4,7 @@ import Foundation
 
 // MARK: - Conveniences
 
-let localDev = false
+let localDev = true
 let devDir = "../"
 
 struct Dep {
